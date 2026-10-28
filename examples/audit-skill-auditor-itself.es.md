@@ -7,10 +7,12 @@ Veredicto: **INSTALAR (ya instalada)**, confianza media. Se auditó solo con el 
 |---|---|---|
 | Seguridad | 4 | Escáner de solo lectura: no ejecuta, importa ni sigue enlaces de lo que analiza. Sin red, sin escritura salvo `--md/--json` que pides tú. Los CRITICAL/HIGH son autohits explicados abajo. |
 | Beneficio | 4 | Aporta triaje determinista (patrones, Unicode oculto, hooks/MCP, tokens) que un prompt no reproduce de forma fiable, más rúbrica y protocolo. Lo que no hace: entender intención; eso lo hace la lectura. |
-| Coste | 4 | Fijo ~200 tokens (nombre+descripción), al activarse ~1.180, bajo demanda ~2.300 (3 referencias que se cargan solo cuando hacen falta). Descripción acotada a frases de auditoría de skills. |
-| Funciona | 3 | Probado con fixture maliciosa y con las 11 skills `replica-*`; sin A/B contra baseline. |
+| Coste | 4 | Fijo ~200 tokens (nombre+descripción), al activarse ~1.760 (creció con el paso de instalar), bajo demanda ~5.700 (referencias, incluida la guía de hallazgos, que se cargan solo cuando hacen falta). Descripción acotada a frases de auditoría de skills. |
+| Funciona | 3 | 18 tests automáticos; A/B de 3 casos sin ventaja de detección medible frente a un modelo sin la skill (ver `evals/ab-test-iteration-1.md`). |
 
-## Autohits esperados (43 hallazgos: 3 CRITICAL, 16 HIGH, 16 MEDIUM, 8 LOW)
+## Autohits esperados (76 hallazgos: 3 CRITICAL, 29 HIGH, 32 MEDIUM, 11 LOW, 1 INFO)
+
+_Actualizado tras añadir `install_skill.py` y la guía de hallazgos: más archivos, más citas de patrones._
 
 El escáner contiene los patrones que busca y la documentación los cita, así que se marca a sí mismo. No hay directiva para ignorarlos (sería también una puerta para un atacante).
 
