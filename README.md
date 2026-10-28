@@ -16,7 +16,11 @@ Spanish version: [README.es.md](README.es.md).
 | Does it work? | Optional with/without test on realistic tasks (reuses `skill-creator`'s eval tooling). It states the token cost first and asks. |
 | Where do I find one? | `references/discovery.md`: registry pages, `gh search`, optional pinned `npx skills find`. Search only, never install. |
 
-Output is a scorecard (Security / Benefit / Cost / Works) ending in *install / install with changes / don't install*. It installs only after an explicit yes, by copying the audited files itself, never through a third-party installer.
+Output is a scorecard (Security / Benefit / Cost / Works) ending in *install / install with changes / don't install*.
+
+### Installing, as-is or cleaned
+
+If you want a skill that has CRITICAL/HIGH findings, `scripts/install_skill.py` installs a **cleaned copy**: `prepare` drops flagged files (hooks, MCP config, scripts, binaries), strips invisible characters or frontmatter keys, and you can edit the rest by hand; `plan` shows the exact differences, the target and any HIGH findings, and refuses while a CRITICAL remains; `apply` installs only with the token from that plan, verifies hashes, rescans and logs. You choose global (every project) or one project, and you are asked each time. There is no "yes to everything" option; an old yes never covers a new install. `--replace` moves an existing copy to `.removed/` instead of deleting it. It never uses third-party installers.
 
 ## Benign or malicious? How a finding is judged
 
@@ -31,7 +35,7 @@ Example: a path to `~/.claude/skills/...` mentioned in a doc is a *mention* (ben
 - It does not prove a skill safe, judge intent, see content fetched at run time, or sandbox-run anything. "No findings" means "no known pattern matched".
 - Needs Python 3.8+ (developed and tested on 3.14, Windows 11), no third-party packages. Token counts are estimates (about 3.5 characters per token, +-25%).
 - Documentation that quotes risky patterns will match. A security skill flags itself; the scanner has no ignore directive on purpose.
-- Not yet done: the with/without benchmark and the trigger-accuracy test of the skill itself.
+- Measured so far: a small with/without test ([evals/ab-test-iteration-1.md](evals/ab-test-iteration-1.md)) found **no detection gain over an unaided strong model** on three easy cases, at about 16% more tokens; its benefit shown there is consistency and auditability. Not done: trigger-accuracy test, multi-run variance, large obfuscated packages.
 
 ## Install
 

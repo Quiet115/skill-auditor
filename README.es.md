@@ -14,7 +14,11 @@ English: [README.md](README.md).
 - **¿Funciona?:** prueba opcional con y sin la skill; avisa del coste antes y pide permiso.
 - **Búsqueda:** `references/discovery.md`. Solo busca; no instala.
 
-Entrega una tarjeta (Seguridad / Beneficio / Coste / Funciona) con veredicto *instalar / instalar con cambios / no instalar*. Solo instala con tu sí explícito, copiando él mismo los archivos auditados.
+Entrega una tarjeta (Seguridad / Beneficio / Coste / Funciona) con veredicto *instalar / instalar con cambios / no instalar*.
+
+### Instalar, tal cual o limpia
+
+Si quieres una skill con hallazgos CRITICAL/HIGH, `scripts/install_skill.py` instala una **copia limpiada**: `prepare` quita lo marcado (hooks, configuración MCP, scripts, binarios), borra caracteres invisibles o claves del frontmatter, y puedes editar el resto a mano; `plan` enseña las diferencias exactas, el destino y los HIGH, y se niega mientras quede un CRITICAL; `apply` instala solo con el token de ese plan, verifica hashes, reescanea y deja registro. Eliges global (todos los proyectos) o un proyecto, y se te pregunta cada vez. No existe un "sí a todo": un sí antiguo no vale para una instalación nueva. `--replace` mueve la copia anterior a `.removed/`, no la borra.
 
 ## ¿Cómo distingue un hallazgo benigno de uno malicioso?
 
@@ -26,7 +30,7 @@ No lo decide el escáner: un hallazgo es una pista. El informe explica, para cad
 - Nunca ejecuta, importa ni instala lo que analiza.
 - No demuestra que algo sea seguro: "sin hallazgos" significa "no coincidió ningún patrón conocido". No ve contenido descargado en ejecución ni juzga intenciones.
 - Python 3.8+ (probado en 3.14, Windows 11), sin dependencias. Tokens estimados, ±25 %.
-- Pendiente: el benchmark con/sin skill y la prueba de activación de la propia skill.
+- Medido: una prueba pequeña con/sin skill ([evals/ab-test-iteration-1.md](evals/ab-test-iteration-1.md)) **no mostró ventaja de detección** frente a un modelo fuerte sin ayuda en tres casos fáciles, con ~16 % más de tokens; lo que aporta ahí es consistencia y trazabilidad. Pendiente: prueba de activación, varianza entre ejecuciones, paquetes grandes y ofuscados.
 
 ## Instalación
 
