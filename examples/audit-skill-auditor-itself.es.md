@@ -6,7 +6,7 @@ Veredicto: **INSTALAR (ya instalada)**, confianza media. Se auditó solo con el 
 | Eje | Nota | Por qué |
 |---|---|---|
 | Seguridad | 4 | Escáner de solo lectura: no ejecuta, importa ni sigue enlaces de lo que analiza. Sin red, sin escritura salvo `--md/--json` que pides tú. Los CRITICAL/HIGH son autohits explicados abajo. |
-| Beneficio | 4 | Aporta triaje determinista (patrones, Unicode oculto, hooks/MCP, tokens) que un prompt no reproduce de forma fiable, más rúbrica y protocolo. Lo que no hace: entender intención; eso lo hace la lectura. |
+| Beneficio | 3 | Aporta consistencia (formato fijo, reglas con ID, cifras de tokens del escáner, triaje por escrito). En el A/B un modelo sin la skill detectó lo mismo en los 3 casos, así que la ventaja de detección no está demostrada. |
 | Coste | 4 | Fijo ~200 tokens (nombre+descripción), al activarse ~1.760 (creció con el paso de instalar), bajo demanda ~5.700 (referencias, incluida la guía de hallazgos, que se cargan solo cuando hacen falta). Descripción acotada a frases de auditoría de skills. |
 | Funciona | 3 | 18 tests automáticos; A/B de 3 casos sin ventaja de detección medible frente a un modelo sin la skill (ver `evals/ab-test-iteration-1.md`). |
 
